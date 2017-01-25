@@ -18,7 +18,7 @@ namespace CameraUtil {
    *  This function uses the original APRIL tags algorithm, but the
    *  OpenCV-based algorithm may be more accurate.
    */
-  at::Mat homographyToPose(at::real fx, at::real fy, 
+  at::Mat homographyToPose(at::real fx, at::real fy,
                            at::real tagSize,
                            const at::Mat& horig,
                            bool openGLStyle=false);
@@ -34,6 +34,6 @@ namespace CameraUtil {
                           cv::Mat& rvec,
                           cv::Mat& tvec);
 
-};
+}
 
 #endif
