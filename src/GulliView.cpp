@@ -80,7 +80,10 @@ typedef struct GulliViewOptions {
       /* Changed to False so that text comes out correctly. */
       /* Issues with detection when set to False */
       mirror_display(false),
-      no_gui(false)
+      no_gui(false),
+      // Defaukt value for IP address and port number to server
+      ip("127.0.0.1"),
+      port("daytime")
   {
   }
   TagDetectorParams params;
@@ -93,6 +96,9 @@ typedef struct GulliViewOptions {
   int frame_height;
   bool mirror_display;
   bool no_gui;
+  // Variables for storing IP address and port number to server
+  std::string ip;
+  std::string port; 
 } GulliViewOptions;
 
 
@@ -177,6 +183,9 @@ GulliViewOptions parse_options(int argc, char** argv) {
       case 'H': opts.frame_height = atoi(optarg); break;
       case 'M': opts.mirror_display = !opts.mirror_display; break;
       case 'n': opts.no_gui = 1; break;
+      // Flags for providing IP address and port number to server
+      case 'i' : opts.ip = optarg; break;
+      case 'p' : opts.port = optarg; break;
       default:
         fprintf(stderr, "\n");
         print_usage(argv[0], stderr);
@@ -285,7 +294,7 @@ int main(int argc, char** argv) {
    int cvPose = 0;
    boost::asio::io_service io_service;
    udp::resolver resolver(io_service);
-   udp::resolver::query query(udp::v4(), "127.0.0.1", "daytime");
+   udp::resolver::query query(udp::v4(), opts.ip, opts.port);
    udp::endpoint receiver_endpoint = *resolver.resolve(query);
 
    udp::socket socket(io_service);
