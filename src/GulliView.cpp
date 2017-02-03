@@ -158,7 +158,7 @@ GulliView Program used for tag detection on Autonomous Vehicles. Options:\n\
 
 GulliViewOptions parse_options(int argc, char** argv) {
   GulliViewOptions opts;
-  const char* options_str = "hDS:s:a:m:V:N:brnf:e:d:F:z:W:H:M";
+  const char* options_str = "hDS:s:a:m:V:N:brnf:e:d:F:z:W:H:M:i:p";
   int c;
   while ((c = getopt(argc, argv, options_str)) != -1) {
     switch (c) {
