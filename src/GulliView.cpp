@@ -42,6 +42,8 @@
 #include "CameraUtil.h"
 
 #define DEFAULT_TAG_FAMILY "Tag36h11"
+#define DEFAULT_IP "127.0.0.1"
+#define DEFAULT_PORT "daytime"
 using namespace std;
 using helper::ImageSource;
 using boost::asio::ip::udp;
@@ -82,8 +84,8 @@ typedef struct GulliViewOptions {
       mirror_display(false),
       no_gui(false),
       // Defaukt value for IP address and port number to server
-      ip("127.0.0.1"),
-      port("daytime")
+      ip(DEFAULT_IP),
+      port(DEFAULT_PORT)
   {
   }
   TagDetectorParams params;
