@@ -119,7 +119,9 @@ GulliView Program used for tag detection on Autonomous Vehicles. Options:\n\
  -W WIDTH        Set the camera image width in pixels\n\
  -H HEIGHT       Set the camera image height in pixels\n\
  -M              Toggle display mirroring\n\
- -n              No gui\n",
+ -n              No gui\n\n\
+ -V              Server IP-address\n\
+ -N              Server Port number\n",
           tool_name,
 	  /* Options removed that are not needed */
 	  /* Can be added later for further functionality */
