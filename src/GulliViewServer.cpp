@@ -10,8 +10,8 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
-//#include "OpenCVHelper.h"
-//#include "TagDetector.h"
+#include "OpenCVHelper.h"
+#include "TagDetector.h"
 
 #include <sys/time.h>
 
@@ -21,32 +21,21 @@
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
-//#include <fstream>
+#include <fstream>
 #include "boost/date_time/posix_time/posix_time.hpp"
-#include "ros/ros.h"
-#include "gulliview_server/Pos.h"
-//#include "CameraUtil.h"
+
+#include "CameraUtil.h"
 
 
 using namespace std;
-//using helper::ImageSource;
+using helper::ImageSource;
 using boost::asio::ip::udp;
 using boost::posix_time::ptime;
 using boost::posix_time::time_duration;
-int main(int argc, char **argv)
+int main()
 {
-   // ROS INIT
-    ros::init(argc, argv, "gulliview");
-    ros::NodeHandle n;
-
-   // init pos
-//   Pos *position = new Pos();
-   gulliview_server::Pos msg;
-   ros::Publisher position_pub = n.advertise<gulliview_server::Pos>("position", 1000);
-   ros::Rate loop_rate(10);
-
    // Create logfile to be used
-   // std::ofstream fout("GulliViewLog.txt");
+   std::ofstream fout("GulliViewLog.txt");
    try {
       boost::asio::io_service io_service;
 
@@ -54,7 +43,7 @@ int main(int argc, char **argv)
       boost::array<uint8_t, 256> answer;
 
       boost::array<uint8_t, 256> recv_buf;
-      while(ros::ok()) {
+      for (;;) {
          udp::endpoint remote_endpoint;
 
          //boost::system::error_code error;
@@ -79,11 +68,7 @@ int main(int argc, char **argv)
                int32_t y = recv_buf[40] << 24 | recv_buf[41] << 16 | recv_buf[42] << 8 | recv_buf[43];
                int32_t t = recv_buf[44] << 24 | recv_buf[45] << 16 | recv_buf[46] << 8 | recv_buf[47];
                answer = recv_buf;
-               msg.x = x;
-               msg.y = y;
-               msg.heading = t;
-               position_pub.publish(msg);
-              // std::cout << "Tag: " << id << " x: " << x << " y: " << y << " heading: " << t << std::endl;
+               std::cout << "Tag: " << id << " x: " << x << " y: " << y << " heading: " << t << std::endl;
             }
             //Data request from the Gulliver map client
          } else if (type == 1 and sub_type == 1) { //TODO: Correct types
@@ -111,13 +96,13 @@ int main(int argc, char **argv)
          // Write to logfile and save
 //      fout << recv_buf.data() << "" << std::endl;
 
-        ros::spinOnce();
+
       }
    } catch (std::exception& e) {
       std::cerr << e.what() << std::endl;
    }
-/*   // Close log file
+   // Close log file
    fout << "Program closed: " << std::endl;
-   fout.close(); */
+   fout.close();
    return 0;
 }
