@@ -160,7 +160,7 @@ GulliView Program used for tag detection on Autonomous Vehicles. Options:\n\
 
 GulliViewOptions parse_options(int argc, char** argv) {
   GulliViewOptions opts;
-  const char* options_str = "hDS:s:a:m:V:N:brnf:e:d:F:z:W:H:M:i:p";
+  const char* options_str = "hDS:s:a:m:V:N:brnf:e:d:F:z:W:H:M";
   int c;
   while ((c = getopt(argc, argv, options_str)) != -1) {
     switch (c) {
@@ -186,8 +186,8 @@ GulliViewOptions parse_options(int argc, char** argv) {
       case 'M': opts.mirror_display = !opts.mirror_display; break;
       case 'n': opts.no_gui = 1; break;
       // Flags for providing IP address and port number to server
-      case 'i' : opts.ip = optarg; break;
-      case 'p' : opts.port = optarg; break;
+      case 'V' : opts.ip = optarg; break;
+      case 'N' : opts.port = optarg; break;
       default:
         fprintf(stderr, "\n");
         print_usage(argv[0], stderr);
