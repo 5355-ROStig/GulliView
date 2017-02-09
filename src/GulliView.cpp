@@ -70,11 +70,6 @@ double d2 = 0.0;
 
 at::Mat pts;
 
-at::Mat pts0;
-at::Mat pts1;
-at::Mat pts2;
-at::Mat pts3;
-
 
 typedef struct GulliViewOptions {
   GulliViewOptions() :
@@ -313,58 +308,68 @@ int main(int argc, char** argv) {
    socket.open(udp::v4());
 
 
-    /* Creating mats for the different cameras,
-       in order from the back wall and towards the door ------------------------------ */
+    /* Setting pts for this camera,
+       going throght the camreas in order from the back wall and towards the door ---------------------------------- */
     at::Point source_points[4];
     at::Point dest_points[4];
 
     /* Camera 3 (1:4) */
-    source_points[0] = at::Point(342.51, 183.974);
-    source_points[1] = at::Point(620.82, 184.758);
-    source_points[2] = at::Point(629.069, 415.181);
-    source_points[3] = at::Point(331.029, 414.423);
-    dest_points[0] =  at::Point(1.75, 1.292);
-    dest_points[1] =  at::Point(3.165, 1.293);
-    dest_points[2] =  at::Point(3.17, 2.437);
-    dest_points[3] =  at::Point(1.752, 2.436);
+    if (opts.device_num == 3) {
 
-    pts3 = getPerspectiveTransform(source_points, dest_points);
+      source_points[0] = at::Point(342.51, 183.974);
+      source_points[1] = at::Point(620.82, 184.758);
+      source_points[2] = at::Point(629.069, 415.181);
+      source_points[3] = at::Point(331.029, 414.423);
+      dest_points[0] =  at::Point(1.75, 1.292);
+      dest_points[1] =  at::Point(3.165, 1.293);
+      dest_points[2] =  at::Point(3.17, 2.437);
+      dest_points[3] =  at::Point(1.752, 2.436);
+
+      pts = getPerspectiveTransform(source_points, dest_points);
 
     /* Camera 1 (2:4) */
-    source_points[0] = at::Point(620.51, 401.909);
-    source_points[1] = at::Point(318.098, 410.594);
-    source_points[2] = at::Point(311.502, 124.183);
-    source_points[3] = at::Point(620.158, 118.723);
-    dest_points[0] =  at::Point(1.771, 3.358);
-    dest_points[1] =  at::Point(3.273, 3.353);
-    dest_points[2] =  at::Point(3.274, 4.758);
-    dest_points[3] =  at::Point(1.768, 4.76);
+    } else if (opts.device_num == 1) {
 
-    pts1 = getPerspectiveTransform(source_points, dest_points);
+      source_points[0] = at::Point(620.51, 401.909);
+      source_points[1] = at::Point(318.098, 410.594);
+      source_points[2] = at::Point(311.502, 124.183);
+      source_points[3] = at::Point(620.158, 118.723);
+      dest_points[0] =  at::Point(1.771, 3.358);
+      dest_points[1] =  at::Point(3.273, 3.353);
+      dest_points[2] =  at::Point(3.274, 4.758);
+      dest_points[3] =  at::Point(1.768, 4.76);
+
+      pts = getPerspectiveTransform(source_points, dest_points);
     
     /* Camera 2 (3:4) */
-    source_points[0] = at::Point(319.189, 190.401);
-    source_points[1] = at::Point(611.5, 175.78);
-    source_points[2] = at::Point(633.143, 418.702);
-    source_points[3] = at::Point(320.295, 434.332);
-    dest_points[0] =  at::Point(1.756, 5.73);
-    dest_points[1] =  at::Point(3.24, 5.732);
-    dest_points[2] =  at::Point(3.258, 6.933);
-    dest_points[3] =  at::Point(1.747, 6.935);
+    } else if (opts.device_num == 2) {
 
-    pts2 = getPerspectiveTransform(source_points, dest_points);
+      source_points[0] = at::Point(319.189, 190.401);
+      source_points[1] = at::Point(611.5, 175.78);
+      source_points[2] = at::Point(633.143, 418.702);
+      source_points[3] = at::Point(320.295, 434.332);
+      dest_points[0] =  at::Point(1.756, 5.73);
+      dest_points[1] =  at::Point(3.24, 5.732);
+      dest_points[2] =  at::Point(3.258, 6.933);
+      dest_points[3] =  at::Point(1.747, 6.935);
+
+      pts = getPerspectiveTransform(source_points, dest_points);
 
     /* Camera 0 (4:4) */
-    source_points[0] = at::Point(631.286, 469.773);
-    source_points[1] = at::Point(308.106, 473.627);
-    source_points[2] = at::Point(322.613, 242.549);
-    source_points[3] = at::Point(619.994, 240.678);
-    dest_points[0] =  at::Point(1.74, 7.36);
-    dest_points[1] =  at::Point(3.233, 7.359);
-    dest_points[2] =  at::Point(3.223, 8.446);
-    dest_points[3] =  at::Point(1.739, 8.454);
+    } else if (opts.device_num == 0) {
 
-    pts0 = getPerspectiveTransform(source_points, dest_points);
+      source_points[0] = at::Point(631.286, 469.773);
+      source_points[1] = at::Point(308.106, 473.627);
+      source_points[2] = at::Point(322.613, 242.549);
+      source_points[3] = at::Point(619.994, 240.678);
+      dest_points[0] =  at::Point(1.74, 7.36);
+      dest_points[1] =  at::Point(3.233, 7.359);
+      dest_points[2] =  at::Point(3.223, 8.446);
+      dest_points[3] =  at::Point(1.739, 8.454);
+
+      pts = getPerspectiveTransform(source_points, dest_points);
+
+    }
 
 
    uint32_t seq = 0;
@@ -562,23 +567,6 @@ int main(int argc, char** argv) {
          // dest_points[1] =  at::Point(1.0, 0.0);
          // dest_points[2] =  at::Point(1.0, 1.0);
          // dest_points[3] =  at::Point(0.0, 1.0);
-
-
-        /* The cameras, in order from the back wall and towards the door */
-        if (opts.device_num == 3) {
-          pts = pts3;
-
-        } else if (opts.device_num == 1) {
-          pts = pts1;
-
-        } else if (opts.device_num == 2) {
-          pts = pts2;
-
-        } else if (opts.device_num == 0) {
-          pts = pts0;
-
-        }
-
 
 
          //std::cout<<"PTS: " << pts << "\n";
