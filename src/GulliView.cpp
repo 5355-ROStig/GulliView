@@ -102,7 +102,7 @@ typedef struct GulliViewOptions {
   bool no_gui;
   // *ADDED: Variables for storing IP address and port number to server
   std::string ip;
-  std::string port; 
+  std::string port;
 } GulliViewOptions;
 
 
@@ -340,7 +340,7 @@ int main(int argc, char** argv) {
       dest_points_pts[3] =  at::Point(1.768, 4.76);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
-    
+
     /* Camera 2 (3:4) */
     } else if (opts.device_num == 2) {
 
@@ -646,7 +646,7 @@ int main(int argc, char** argv) {
                recv_buf[index++] = y_coord >> 16;
                recv_buf[index++] = y_coord >> 8;
                recv_buf[index++] = y_coord;
-               int32_t heading = 0; //TODO
+               int32_t heading = opts.device_num; //TODO
                recv_buf[index++] = heading >> 24;
                recv_buf[index++] = heading >> 16;
                recv_buf[index++] = heading >> 8;
