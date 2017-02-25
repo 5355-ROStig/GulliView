@@ -102,7 +102,7 @@ typedef struct GulliViewOptions {
   bool no_gui;
   // *ADDED: Variables for storing IP address and port number to server
   std::string ip;
-  std::string port;
+  std::string port; 
 } GulliViewOptions;
 
 
@@ -282,8 +282,9 @@ int main(int argc, char** argv) {
       std::cerr << "no frames!\n";
       exit(1);
    }
+   
 
-   /* Optical Center of video capturing frame with X and Y coordinates */
+/* Optical Center of video capturing frame with X and Y coordinates */
    opticalCenter.x = frame.cols * 0.5;
    opticalCenter.y = frame.rows * 0.5;
 
@@ -316,56 +317,57 @@ int main(int argc, char** argv) {
     /* Camera 3 (1:4) */
     if (opts.device_num == 3) {
 
-      source_points_pts[0] = at::Point(342.51, 183.974);
-      source_points_pts[1] = at::Point(620.82, 184.758);
-      source_points_pts[2] = at::Point(629.069, 415.181);
-      source_points_pts[3] = at::Point(331.029, 414.423);
-      dest_points_pts[0] =  at::Point(1.75, 1.292);
-      dest_points_pts[1] =  at::Point(3.165, 1.293);
-      dest_points_pts[2] =  at::Point(3.17, 2.437);
-      dest_points_pts[3] =  at::Point(1.752, 2.436);
+      source_points_pts[0] = at::Point(110.35, 52.2688);
+      source_points_pts[1] = at::Point(686.493, 53.0043);
+      source_points_pts[2] = at::Point(731.3797,416.095);
+      source_points_pts[3] = at::Point(60.8532, 414.806);
+      dest_points_pts[0] =  at::Point(0.579, 0.657);
+      dest_points_pts[1] =  at::Point(4.291, 0.648);
+      dest_points_pts[2] =  at::Point(4.324, 2.833);
+      dest_points_pts[3] =  at::Point(0.554, 2.824);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 1 (2:4) */
     } else if (opts.device_num == 1) {
 
-      source_points_pts[0] = at::Point(620.51, 401.909);
-      source_points_pts[1] = at::Point(318.098, 410.594);
-      source_points_pts[2] = at::Point(311.502, 124.183);
-      source_points_pts[3] = at::Point(620.158, 118.723);
-      dest_points_pts[0] =  at::Point(1.771, 3.358);
-      dest_points_pts[1] =  at::Point(3.273, 3.353);
-      dest_points_pts[2] =  at::Point(3.274, 4.758);
-      dest_points_pts[3] =  at::Point(1.768, 4.76);
+      source_points_pts[2] = at::Point(91.4283, 18.5949);
+      source_points_pts[3] = at::Point(715.96, 18.0613);
+      source_points_pts[0] = at::Point(715.268, 415.193);
+      source_points_pts[1] = at::Point(92.27, 431.78);
+      dest_points_pts[0] =  at::Point(0.554, 2.824);
+      dest_points_pts[1] =  at::Point(4.324, 2.833);
+      dest_points_pts[2] =  at::Point(4.272, 5.237);
+      dest_points_pts[3] =  at::Point(0.547, 5.213);
+
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
-
+    
     /* Camera 2 (3:4) */
     } else if (opts.device_num == 2) {
 
-      source_points_pts[0] = at::Point(319.189, 190.401);
-      source_points_pts[1] = at::Point(611.5, 175.78);
-      source_points_pts[2] = at::Point(633.143, 418.702);
-      source_points_pts[3] = at::Point(320.295, 434.332);
-      dest_points_pts[0] =  at::Point(1.756, 5.73);
-      dest_points_pts[1] =  at::Point(3.24, 5.732);
-      dest_points_pts[2] =  at::Point(3.258, 6.933);
-      dest_points_pts[3] =  at::Point(1.747, 6.935);
+      source_points_pts[0] = at::Point(76.7591, 79.7657);
+      source_points_pts[1] = at::Point(667.303, 54.4509);
+      source_points_pts[2] = at::Point(703.619, 417.595);
+      source_points_pts[3] = at::Point(61.6396, 409.741);
+      dest_points_pts[0] =  at::Point(0.547, 5.213);
+      dest_points_pts[1] =  at::Point(4.272, 5.237);
+      dest_points_pts[2] =  at::Point(4.240, 7.397);
+      dest_points_pts[3] =  at::Point(0.540, 7.170);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 0 (4:4) */
     } else if (opts.device_num == 0) {
 
-      source_points_pts[0] = at::Point(631.286, 469.773);
-      source_points_pts[1] = at::Point(308.106, 473.627);
-      source_points_pts[2] = at::Point(322.613, 242.549);
-      source_points_pts[3] = at::Point(619.994, 240.678);
-      dest_points_pts[0] =  at::Point(1.74, 7.36);
-      dest_points_pts[1] =  at::Point(3.233, 7.359);
-      dest_points_pts[2] =  at::Point(3.223, 8.446);
-      dest_points_pts[3] =  at::Point(1.739, 8.454);
+      source_points_pts[2] = at::Point(121.86, 74.1701);
+      source_points_pts[3] = at::Point(694.711, 77.5657);
+      source_points_pts[0] = at::Point(739.967, 424.359);
+      source_points_pts[1] = at::Point(77.8035, 390.712);
+      dest_points_pts[0] =  at::Point(0.540, 7.17);
+      dest_points_pts[1] =  at::Point(4.240, 7.397);
+      dest_points_pts[2] =  at::Point(4.215, 9.267);
+      dest_points_pts[3] =  at::Point(0.533, 9.252);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
@@ -376,6 +378,15 @@ int main(int argc, char** argv) {
    while (1) {
 
       vc >> frame;
+
+     cv::Mat k1 = (cv::Mat1d(3,3) << 927.42805517  ,  0.0      ,    401.59811614, 0, 850.04900153 , 225.08468986, 0, 0, 1);
+     cv::Mat d1 = (cv::Mat1d(1,5) << 0.24592604, -1.97913584 ,-0.01938124 , 0.00740747 , 2.37610561);
+     cv::Mat opt1 = cv::getOptimalNewCameraMatrix(k1, d1, frame.size(), 0);
+   
+     cv::Mat ret;
+     cv::undistort(frame,ret, k1, d1, opt1);
+     frame = ret.clone();
+
       ptime start;
       start = boost::posix_time::microsec_clock::local_time();
       //std::cout << "Start Time " << start << "\n";
@@ -511,7 +522,8 @@ int main(int argc, char** argv) {
                      1.0, cvScalar(0,0,250), 2, CV_AA);
                a1 = dd.cxy.x;
                a2 = dd.cxy.y;
-               // New X-Axis detected
+	       std::cout << "0_x: " << a1 << " 0_y: " << a2 << "\n";
+            // New X-Axis detected
             } else if (dd.id == 1) {
                putText(frame, "X Axis",
                      cv::Point(dd.cxy.x,dd.cxy.y),
@@ -519,9 +531,10 @@ int main(int argc, char** argv) {
                      1.0, cvScalar(0,0,250), 2, CV_AA);
                b1 = dd.cxy.x;
                b2 = dd.cxy.y;
+	       std::cout << "X_x: " << b1 << " X_y: " << b2 << "\n";
                //            b1 = b1-a1;
                //            b2 = b2-a2;
-               // New Y-Axis detected
+            // New Y-Axis detected
             } else if (dd.id == 2) {
                putText(frame, "Y Axis",
                      cv::Point(dd.cxy.x,dd.cxy.y),
@@ -529,9 +542,10 @@ int main(int argc, char** argv) {
                      1.0, cvScalar(0,0,250), 2, CV_AA);
                c1 = dd.cxy.x;
                c2 = dd.cxy.y;
+	       std::cout << "Y_x: " << c1 << " Y_y: " << c2 << "\n"; 
                //            c1 = c1-a1;
                //            c2 = c2-a2;
-               // Quad Angle used for perspective transform
+            // Quad Angle used for perspective transform
             } else if (dd.id == 3) {
                putText(frame, "Quad Axis",
                      cv::Point(dd.cxy.x,dd.cxy.y),
@@ -539,6 +553,7 @@ int main(int argc, char** argv) {
                      1.0, cvScalar(0,0,250), 2, CV_AA);
                d1 = dd.cxy.x;
                d2 = dd.cxy.y;
+	       std::cout << "Quad_x: " << d1 << " Quad_y: " << d2 << "\n"; 
                //            d1 = d1-a1;
                //            d2 = d2-a2;
             }
@@ -646,6 +661,7 @@ int main(int argc, char** argv) {
                recv_buf[index++] = y_coord >> 16;
                recv_buf[index++] = y_coord >> 8;
                recv_buf[index++] = y_coord;
+		//prev 0
                int32_t heading = opts.device_num; //TODO
                recv_buf[index++] = heading >> 24;
                recv_buf[index++] = heading >> 16;
@@ -715,15 +731,15 @@ int main(int argc, char** argv) {
 
          }
 
-         index = len_index;
-         recv_buf[index++] = len << 24;
-         recv_buf[index++] = len << 16;
-         recv_buf[index++] = len << 8;
-         recv_buf[index++] = len;
-         socket.send_to(boost::asio::buffer(recv_buf), receiver_endpoint);
-         ++seq;
-
+      index = len_index;
+      recv_buf[index++] = len << 24;
+      recv_buf[index++] = len << 16;
+      recv_buf[index++] = len << 8;
+      recv_buf[index++] = len;
+      socket.send_to(boost::asio::buffer(recv_buf), receiver_endpoint);
+      ++seq;
       }
+
 
       if (opts.mirror_display) {
          cv::flip(show, show, 1);
