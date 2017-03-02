@@ -359,7 +359,7 @@ int main(int argc, char** argv) {
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 0 (4:4) */
-    } else if (opts.device_num == 0) {
+    } else if (opts.device_num == 4) {
 
 
       source_points_pts[0] = at::Point(553.329, 385.621);
@@ -670,7 +670,7 @@ int main(int argc, char** argv) {
                recv_buf[index++] = heading >> 8;
                recv_buf[index++] = heading;
                ++len;
-               std::cout << dd.id << " " << x_coord << " " << y_coord << std::endl;
+               std::cout << "camera: " << opts.device_num << " tag: " << dd.id << " x: " << x_coord << " y: " << y_coord << std::endl;
 
                //   std::string outPut = "Tag ID: " + helper::num2str(dd.id) + " Coordinates: "
                //   + helper::num2str(x_new) + ", " + helper::num2str(y_new) + " Time: " + helper::num2str(boost::posix_time::microsec_clock::local_time()) + " [" +  helper::num2str(start) + "]";
