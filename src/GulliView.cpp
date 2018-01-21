@@ -41,6 +41,8 @@
 
 #include "CameraUtil.h"
 
+#include  <chrono>
+
 #define DEFAULT_TAG_FAMILY "Tag36h11"
 #define DEFAULT_IP "127.0.0.1"
 #define DEFAULT_PORT "2020"
@@ -315,7 +317,7 @@ int main(int argc, char** argv) {
     at::Point dest_points_pts[4];
 
     /* Camera 3 (1:4) */
-    if (opts.device_num == 3) {
+    if (opts.device_num == 0) {
 
       source_points_pts[0] = at::Point(224.958, 114.868);
       source_points_pts[1] = at::Point(547.532, 124.167);
@@ -359,7 +361,7 @@ int main(int argc, char** argv) {
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 0 (4:4) */
-    } else if (opts.device_num == 4) {
+    } else if (opts.device_num == 3) {
 
 
       source_points_pts[0] = at::Point(553.329, 385.621);
@@ -375,10 +377,10 @@ int main(int argc, char** argv) {
 
     }
 
-
+   int count = 0;
    uint32_t seq = 0;
    while (1) {
-
+     count = count +1;
       vc >> frame;
 
      cv::Mat k1 = (cv::Mat1d(3,3) << 927.42805517  ,  0.0      ,    401.59811614, 0, 850.04900153 , 225.08468986, 0, 0, 1);
@@ -750,13 +752,16 @@ int main(int argc, char** argv) {
       if (not opts.no_gui) {
           cv::imshow(win, show);
       }
+
+//     cv::imwrite("frame" + std::to_string(count) + std::to_string(opts.device_num)  + ".png", frame);
+
       int k = cv::waitKey(5);
-      if (k % 256 == 's') {
+/*      if (k % 256 == 's') {
          cv::imwrite("frame.png", frame);
          std::cout << "wrote frame.png\n";
       } else if (k % 256 == 'p') {
          cvPose = !cvPose;
-      } else if ((k % 256 == 27) or sig_stop/* ESC */) {
+      } else */if ((k % 256 == 27) or sig_stop/* ESC */) {
          break;
       }
 
