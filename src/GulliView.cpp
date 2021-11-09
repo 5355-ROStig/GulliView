@@ -317,7 +317,7 @@ int main(int argc, char** argv) {
     at::Point dest_points_pts[4];
 
     /* Camera 3 (1:4) */
-    if (opts.device_num == 0) {
+    if (opts.device_num == 1) {
 
       source_points_pts[0] = at::Point(224.958, 114.868);
       source_points_pts[1] = at::Point(547.532, 124.167);
@@ -331,7 +331,7 @@ int main(int argc, char** argv) {
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 1 (2:4) */
-    } else if (opts.device_num == 1) {
+    } else if (opts.device_num == 2) {
         
       source_points_pts[0] = at::Point(559.879, 409.954);
       source_points_pts[1] = at::Point(229.640, 418.445);
@@ -346,7 +346,7 @@ int main(int argc, char** argv) {
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
     
     /* Camera 2 (3:4) */
-    } else if (opts.device_num == 2) {
+    } else if (opts.device_num == 0) {
 
 
       source_points_pts[0] = at::Point(267.557, 14.5752);
