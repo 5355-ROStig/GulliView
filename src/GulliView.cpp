@@ -89,6 +89,7 @@ typedef struct GulliViewOptions {
       no_gui(false),
       // *ADDED: Default value for IP address and port number to server
       ip(DEFAULT_IP),
+      broadcast(false),
       port(DEFAULT_PORT)
   {
   }
@@ -104,6 +105,7 @@ typedef struct GulliViewOptions {
   bool no_gui;
   // *ADDED: Variables for storing IP address and port number to server
   std::string ip;
+  bool broadcast;
   std::string port; 
 } GulliViewOptions;
 
@@ -125,6 +127,7 @@ GulliView Program used for tag detection on Autonomous Vehicles. Options:\n\
  -M              Toggle display mirroring\n\
  -n              No gui\n\n\
  -V              Server IP-address\n\
+ -B              Enable broadcast (use when broadcast IP is given for -V flag)\
  -N              Server Port number (Default: 2020)\n",
           tool_name,
     /* Options removed that are not needed */
@@ -193,6 +196,7 @@ GulliViewOptions parse_options(int argc, char** argv) {
       case 'n': opts.no_gui = 1; break;
       // *ADDED: Flags for providing IP address and port number to server
       case 'V' : opts.ip = optarg; break;
+      case 'B' : opts.broadcast = !opts.broadcast; break;
       case 'N' : opts.port = optarg; break;
       default:
         fprintf(stderr, "\n");
@@ -310,6 +314,9 @@ int main(int argc, char** argv) {
    udp::socket socket(io_service);
    socket.open(udp::v4());
 
+    if (opts.broadcast) {
+        socket.set_option(boost::asio::socket_base::broadcast(true));
+    }
 
     /* Setting pts for this camera,
        going throght the camreas in order from the back wall and towards the door ---------------------------------- */
