@@ -127,7 +127,7 @@ GulliView Program used for tag detection on Autonomous Vehicles. Options:\n\
  -M              Toggle display mirroring\n\
  -n              No gui\n\n\
  -V              Server IP-address\n\
- -B              Enable broadcast (use when broadcast IP is given for -V flag)\
+ -B              Enable broadcast (use when broadcast IP is given for -V flag)\n\
  -N              Server Port number (Default: 2020)\n",
           tool_name,
     /* Options removed that are not needed */
@@ -169,7 +169,7 @@ GulliView Program used for tag detection on Autonomous Vehicles. Options:\n\
 
 GulliViewOptions parse_options(int argc, char** argv) {
   GulliViewOptions opts;
-  const char* options_str = "hDS:s:a:m:V:N:brnf:e:d:F:z:W:H:M";
+  const char* options_str = "hDS:s:a:m:V:BN:brnf:e:d:F:z:W:H:M";
   int c;
   while ((c = getopt(argc, argv, options_str)) != -1) {
     switch (c) {

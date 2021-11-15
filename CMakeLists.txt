@@ -60,3 +60,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native -funroll-loops -DNDEBUG")
 
 add_subdirectory(src)
 
+# Copy start scripts into output dir
+# install(DIRECTORY scripts DESTINATION ${CMAKE_BINARY_DIR})
+configure_file(${CMAKE_SOURCE_DIR}/scripts/startCameras.sh ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/scripts/startCamerasNew.sh ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/scripts/startCamerasBroadcast.sh ${CMAKE_BINARY_DIR} COPYONLY)
