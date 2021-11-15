@@ -13,7 +13,7 @@ then
   ./GulliView -d 2 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
   ./GulliView -d 3 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
 else
-  ./GulliView -d 4 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B &
+  ./GulliView -d 0 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B &
   ./GulliView -d 1 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B &
   ./GulliView -d 2 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B &
   ./GulliView -d 3 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B &
