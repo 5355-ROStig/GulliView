@@ -326,59 +326,56 @@ int main(int argc, char** argv) {
     /* Camera 3 (1:4) */
     if (opts.device_num == 1) {
 
-      source_points_pts[0] = at::Point(224.958, 114.868);
-      source_points_pts[1] = at::Point(547.532, 124.167);
-      source_points_pts[2] = at::Point(560.789, 427.698);
-      source_points_pts[3] = at::Point(209.377, 421.425);
-      dest_points_pts[0] =  at::Point(1.566, 1.425);
-      dest_points_pts[1] =  at::Point(3.376, 1.402);
-      dest_points_pts[2] =  at::Point(3.434, 3.01);
-      dest_points_pts[3] =  at::Point(1.629, 3.01);
+      source_points_pts[0] = at::Point(145.97, 74.75);
+      source_points_pts[1] = at::Point(621.72, 53.07);
+      source_points_pts[3] = at::Point(135.35, 419.70);
+      source_points_pts[2] = at::Point(703.05, 413.70);
+      dest_points_pts[0] =  at::Point(1.00, 1.00);
+      dest_points_pts[1] =  at::Point(3.78, 1.00);
+      dest_points_pts[3] =  at::Point(1.00, 2.90);
+      dest_points_pts[2] =  at::Point(4.00, 3.00);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 1 (2:4) */
     } else if (opts.device_num == 2) {
-        
-      source_points_pts[0] = at::Point(559.879, 409.954);
-      source_points_pts[1] = at::Point(229.640, 418.445);
-      source_points_pts[2] = at::Point(196.57, 14.1182);
-      source_points_pts[3] = at::Point(541.567, 13.7038);
-      dest_points_pts[0] =  at::Point(1.629, 3.01);
-      dest_points_pts[1] =  at::Point(3.434, 3.01);
-      dest_points_pts[2] =  at::Point(3.574, 5.163);
-      dest_points_pts[3] =  at::Point(1.715, 5.149);
 
+      source_points_pts[0] = at::Point(654.50, 379.45);
+      source_points_pts[1] = at::Point(133.71, 383.57);
+      source_points_pts[3] = at::Point(662.80, 18.58);
+      source_points_pts[2] = at::Point(107.11, 28.02);
+      dest_points_pts[0] =  at::Point(1.00, 2.90);
+      dest_points_pts[1] =  at::Point(4.00, 3.00);
+      dest_points_pts[3] =  at::Point(1.00, 4.94);
+      dest_points_pts[2] =  at::Point(4.00, 4.94);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
     
     /* Camera 2 (3:4) */
     } else if (opts.device_num == 0) {
 
-
-      source_points_pts[0] = at::Point(267.557, 14.5752);
-      source_points_pts[1] = at::Point(594.041, 21.951);
-      source_points_pts[2] = at::Point(600.781, 424.121);
-      source_points_pts[3] = at::Point(230.257, 409.522);
-      dest_points_pts[0] =  at::Point(1.715, 5.149);
-      dest_points_pts[1] =  at::Point(3.574, 5.163);
-      dest_points_pts[2] =  at::Point(3.568, 7.320);
-      dest_points_pts[3] =  at::Point(1.634, 7.3);
+      source_points_pts[0] = at::Point(114.80, 17.27);
+      source_points_pts[1] = at::Point(658.43, 16.56);
+      source_points_pts[3] = at::Point(123.73, 428.64);
+      source_points_pts[2] = at::Point(655.60, 421.41);
+      dest_points_pts[0] =  at::Point(1.00, 4.94);
+      dest_points_pts[1] =  at::Point(4.00, 4.94);
+      dest_points_pts[3] =  at::Point(1.00, 7.20);
+      dest_points_pts[2] =  at::Point(4.00, 7.20);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 0 (4:4) */
     } else if (opts.device_num == 3) {
 
-
-      source_points_pts[0] = at::Point(553.329, 385.621);
-      source_points_pts[1] = at::Point(169.826, 392.101);
-      source_points_pts[2] = at::Point(204.165, 81.0946);
-      source_points_pts[3] = at::Point(535.722, 82.9201);
-      dest_points_pts[0] =  at::Point(1.634, 7.3);
-      dest_points_pts[1] =  at::Point(3.568, 7.320);
-      dest_points_pts[2] =  at::Point(3.495, 8.932);
-      dest_points_pts[3] =  at::Point(1.634, 8.927);
+      source_points_pts[0] = at::Point(663.82, 396.71);
+      source_points_pts[1] = at::Point(82.23, 411.32);
+      source_points_pts[3] = at::Point(715.31, 76.03);
+      source_points_pts[2] = at::Point(111.93, 71.25);
+      dest_points_pts[0] =  at::Point(1.00, 7.20);
+      dest_points_pts[1] =  at::Point(4.00, 7.20);
+      dest_points_pts[3] =  at::Point(0.50, 9.00);
+      dest_points_pts[2] =  at::Point(4.00, 9.00);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
