@@ -389,7 +389,31 @@ int main(int argc, char** argv) {
     uint32_t seq = 0;
     while (1) {
         count = count +1;
-        vc >> frame;
+        
+        /**
+         A "little" hackaround to always fetch the latest frame.
+         OpenCV has an internal buffer for camera frames, which makes retrieving
+         frames very fast, but gives outdated frames. However, we want to process
+         only the freshest frames to reduce latency.
+         So, we read frames and measure the time it took. If it was less than 10ms,
+         the frame was buffered and we discard it. Otherwise, carry on processing
+         the frame.
+         
+         Inspired by:
+         https://stackoverflow.com/questions/30032063
+         and
+         https://answers.opencv.org/question/29957/highguivideocapture-buffer-introducing-lag/?answer=38217#post-id-38217
+         */
+        time_duration frame_fetch_delay;
+        ptime fetch_start = boost::posix_time::microsec_clock::local_time();
+        ptime fetch_stop;
+        do {
+            vc >> frame;
+            fetch_stop = boost::posix_time::microsec_clock::local_time();
+            frame_fetch_delay = fetch_stop - fetch_start;
+            fetch_start = fetch_stop;
+            //std::cout << "Frame fetch delay" << helper::num2str(frame_fetch_delay) << "\n";
+        } while (frame_fetch_delay.total_milliseconds() < 10);
 
         cv::Mat ret;
         cv::undistort(frame,ret, k1, d1, opt1);
