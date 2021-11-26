@@ -380,23 +380,23 @@ int main(int argc, char** argv) {
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     }
+    
+    cv::Mat k1 = (cv::Mat1d(3,3) << 927.42805517  ,  0.0      ,    401.59811614, 0, 850.04900153 , 225.08468986, 0, 0, 1);
+    cv::Mat d1 = (cv::Mat1d(1,5) << 0.24592604, -1.97913584 ,-0.01938124 , 0.00740747 , 2.37610561);
+    cv::Mat opt1 = cv::getOptimalNewCameraMatrix(k1, d1, frame.size(), 0);
 
-   int count = 0;
-   uint32_t seq = 0;
-   while (1) {
-     count = count +1;
-      vc >> frame;
+    int count = 0;
+    uint32_t seq = 0;
+    while (1) {
+        count = count +1;
+        vc >> frame;
 
-     cv::Mat k1 = (cv::Mat1d(3,3) << 927.42805517  ,  0.0      ,    401.59811614, 0, 850.04900153 , 225.08468986, 0, 0, 1);
-     cv::Mat d1 = (cv::Mat1d(1,5) << 0.24592604, -1.97913584 ,-0.01938124 , 0.00740747 , 2.37610561);
-     cv::Mat opt1 = cv::getOptimalNewCameraMatrix(k1, d1, frame.size(), 0);
-   
-     cv::Mat ret;
-     cv::undistort(frame,ret, k1, d1, opt1);
-     frame = ret.clone();
+        cv::Mat ret;
+        cv::undistort(frame,ret, k1, d1, opt1);
+        frame = ret.clone();
 
-      ptime start;
-      start = boost::posix_time::microsec_clock::local_time();
+      //ptime start;
+      //start = boost::posix_time::microsec_clock::local_time();
       //std::cout << "Start Time " << start << "\n";
       //std::string startProcStr = helper::num2str(boost::posix_time::microsec_clock::local_time());
       if (frame.empty()) {
@@ -646,12 +646,12 @@ int main(int argc, char** argv) {
                //std::string endProcStr = helper::num2str(boost::posix_time::microsec_clock::local_time());
                //std::string totProcStr = endProcStr-startProcStr;
                //std::cout <<"Processing time: " << totProcStr << "\n";
-               ptime end;
-               end = boost::posix_time::microsec_clock::local_time();
+               //ptime end;
+               //end = boost::posix_time::microsec_clock::local_time();
                //std::cout << "End Time " << end << "\n";
-               time_duration processTime = end-start;
+               //time_duration processTime = end-start;
                //difftime(end,start);
-               std::string procTim = helper::num2str(processTime);
+               //std::string procTim = helper::num2str(processTime);
                //std::cout << "Elapsed Time: " << procTim << "\n";
 
                uint32_t id = dd.id - 3;
