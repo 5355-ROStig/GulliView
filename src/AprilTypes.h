@@ -12,6 +12,7 @@
 #include <opencv2/core/core.hpp>
 #include <stdint.h>
 #include <float.h>
+#include <map>
 
 // Namespace to hold data type definitions for apriltags library.
 namespace at {

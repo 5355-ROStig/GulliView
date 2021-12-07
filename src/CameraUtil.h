@@ -13,26 +13,26 @@
 
 namespace CameraUtil {
 
-  /** Convert a 3x3 homography matrix to a 4x4 rigid body
-   *  transformation, given focal distances in X/Y, and tag size in m.
-   *  This function uses the original APRIL tags algorithm, but the
-   *  OpenCV-based algorithm may be more accurate.
-   */
-  at::Mat homographyToPose(at::real fx, at::real fy,
-                           at::real tagSize,
-                           const at::Mat& horig,
-                           bool openGLStyle=false);
+    /** Convert a 3x3 homography matrix to a 4x4 rigid body
+     *  transformation, given focal distances in X/Y, and tag size in m.
+     *  This function uses the original APRIL tags algorithm, but the
+     *  OpenCV-based algorithm may be more accurate.
+     */
+    at::Mat homographyToPose(at::real fx, at::real fy,
+                             at::real tagSize,
+                             const at::Mat& horig,
+                             bool openGLStyle=false);
 
-  /** Convert a 3x3 homography matrix to a 4x4 rigid body
-   *  transformation, given focal distances in X/Y, and tag size in m.
-   *  This function calls the OpenCV solvePnP function under the hood
-   *  to compute a rotation vector and translation vector.
-   */
-  void homographyToPoseCV(at::real fx, at::real fy,
-                          at::real tagSize,
-                          const at::Mat& horig,
-                          cv::Mat& rvec,
-                          cv::Mat& tvec);
+    /** Convert a 3x3 homography matrix to a 4x4 rigid body
+     *  transformation, given focal distances in X/Y, and tag size in m.
+     *  This function calls the OpenCV solvePnP function under the hood
+     *  to compute a rotation vector and translation vector.
+     */
+    void homographyToPoseCV(at::real fx, at::real fy,
+                            at::real tagSize,
+                            const at::Mat& horig,
+                            cv::Mat& rvec,
+                            cv::Mat& tvec);
 
 }
 
