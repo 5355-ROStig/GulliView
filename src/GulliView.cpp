@@ -326,55 +326,55 @@ int main(int argc, char** argv) {
     /* Camera 3 (1:4) */
     if (opts.device_num == 1) {
 
-      source_points_pts[0] = at::Point(145.97, 74.75);
-      source_points_pts[1] = at::Point(621.72, 53.07);
-      source_points_pts[3] = at::Point(135.35, 419.70);
-      source_points_pts[2] = at::Point(703.05, 413.70);
+      source_points_pts[0] = at::Point(132.93, 85.90);
+      source_points_pts[1] = at::Point(661.55, 82.38);
+      source_points_pts[3] = at::Point(99.88, 421.53);
+      source_points_pts[2] = at::Point(703.45, 420.75);
       dest_points_pts[0] =  at::Point(1.00, 1.00);
-      dest_points_pts[1] =  at::Point(3.78, 1.00);
-      dest_points_pts[3] =  at::Point(1.00, 2.90);
-      dest_points_pts[2] =  at::Point(4.00, 3.00);
+      dest_points_pts[1] =  at::Point(4.00, 1.00);
+      dest_points_pts[3] =  at::Point(1.00, 2.77);
+      dest_points_pts[2] =  at::Point(4.00, 2.82);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 1 (2:4) */
     } else if (opts.device_num == 2) {
 
-      source_points_pts[0] = at::Point(654.50, 379.45);
-      source_points_pts[1] = at::Point(133.71, 383.57);
-      source_points_pts[3] = at::Point(662.80, 18.58);
-      source_points_pts[2] = at::Point(107.11, 28.02);
-      dest_points_pts[0] =  at::Point(1.00, 2.90);
-      dest_points_pts[1] =  at::Point(4.00, 3.00);
-      dest_points_pts[3] =  at::Point(1.00, 4.94);
-      dest_points_pts[2] =  at::Point(4.00, 4.94);
+      source_points_pts[0] = at::Point(672.00, 418.80);
+      source_points_pts[1] = at::Point(115.75, 431.65);
+      source_points_pts[3] = at::Point(681.00, 30.69);
+      source_points_pts[2] = at::Point(86.90, 36.00);
+      dest_points_pts[0] =  at::Point(1.00, 2.77);
+      dest_points_pts[1] =  at::Point(4.00, 2.82);
+      dest_points_pts[3] =  at::Point(1.00, 4.83);
+      dest_points_pts[2] =  at::Point(4.00, 4.86);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
     
     /* Camera 2 (3:4) */
     } else if (opts.device_num == 0) {
 
-      source_points_pts[0] = at::Point(114.80, 17.27);
-      source_points_pts[1] = at::Point(658.43, 16.56);
-      source_points_pts[3] = at::Point(123.73, 428.64);
-      source_points_pts[2] = at::Point(655.60, 421.41);
-      dest_points_pts[0] =  at::Point(1.00, 4.94);
-      dest_points_pts[1] =  at::Point(4.00, 4.94);
-      dest_points_pts[3] =  at::Point(1.00, 7.20);
-      dest_points_pts[2] =  at::Point(4.00, 7.20);
+      source_points_pts[0] = at::Point(102.75, 17.36);
+      source_points_pts[1] = at::Point(672.40, 18.45);
+      source_points_pts[3] = at::Point(99.22, 428.17);
+      source_points_pts[2] = at::Point(681.79, 423.80);
+      dest_points_pts[0] =  at::Point(1.00, 4.83);
+      dest_points_pts[1] =  at::Point(4.00, 4.86);
+      dest_points_pts[3] =  at::Point(1.00, 6.97);
+      dest_points_pts[2] =  at::Point(4.00, 6.965);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
 
     /* Camera 0 (4:4) */
     } else if (opts.device_num == 3) {
 
-      source_points_pts[0] = at::Point(663.82, 396.71);
-      source_points_pts[1] = at::Point(82.23, 411.32);
-      source_points_pts[3] = at::Point(715.31, 76.03);
-      source_points_pts[2] = at::Point(111.93, 71.25);
-      dest_points_pts[0] =  at::Point(1.00, 7.20);
-      dest_points_pts[1] =  at::Point(4.00, 7.20);
-      dest_points_pts[3] =  at::Point(0.50, 9.00);
+      source_points_pts[0] = at::Point(690.96, 429.82);
+      source_points_pts[1] = at::Point(93.40, 431.02);
+      source_points_pts[3] = at::Point(667.82, 40.81);
+      source_points_pts[2] = at::Point(119.83, 37.85);
+      dest_points_pts[0] =  at::Point(1.00, 6.93);
+      dest_points_pts[1] =  at::Point(4.00, 6.965);
+      dest_points_pts[3] =  at::Point(1.00, 9.00);
       dest_points_pts[2] =  at::Point(4.00, 9.00);
 
       pts = getPerspectiveTransform(source_points_pts, dest_points_pts);
