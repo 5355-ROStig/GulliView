@@ -8,15 +8,15 @@
 trap 'kill %1; kill %2; kill %3; kill %4' SIGINT
 if [ $# -eq 1  ]
 then
-  ./GulliView -d 0 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
-  ./GulliView -d 1 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
-  ./GulliView -d 2 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
-  ./GulliView -d 3 -n -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
+  ./GulliView -d 0 -n -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
+  ./GulliView -d 1 -n -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
+  ./GulliView -d 2 -n -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
+  ./GulliView -d 3 -n -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N $1 &
 else
-  ./GulliView -d 0 -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
-  ./GulliView -d 1 -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
-  ./GulliView -d 2 -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
-  ./GulliView -d 3 -f Tag16h5 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
+  ./GulliView -d 0 -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
+  ./GulliView -d 1 -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
+  ./GulliView -d 2 -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
+  ./GulliView -d 3 -f Tag36h11 -W 800 -H 448 -V 192.168.1.255 -B -N 2121 &
 fi
 
 wait

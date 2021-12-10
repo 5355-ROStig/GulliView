@@ -45,7 +45,7 @@
 
 #include "apriltag/apriltag.h"
 
-#define DEFAULT_TAG_FAMILY "tag16h5"
+#define DEFAULT_TAG_FAMILY "tag36h11"
 #define DEFAULT_IP "127.0.0.1"
 #define DEFAULT_PORT "2121"
 using namespace std;
@@ -223,7 +223,7 @@ cv::Mat perspectiveTransform(int camera) {
     at::Point dest_points_pts[4];
 
 
-    if (camera == 1) {
+    if (camera == 0) {
         /* Camera 3 (1:4) */
         source_points_pts[0] = at::Point(132.93, 85.90);
         source_points_pts[1] = at::Point(661.55, 82.38);
@@ -233,7 +233,7 @@ cv::Mat perspectiveTransform(int camera) {
         dest_points_pts[1] =  at::Point(4.00, 1.00);
         dest_points_pts[3] =  at::Point(1.00, 2.77);
         dest_points_pts[2] =  at::Point(4.00, 2.82);
-    } else if (camera == 2) {
+    } else if (camera == 1) {
         /* Camera 1 (2:4) */
         source_points_pts[0] = at::Point(672.00, 418.80);
         source_points_pts[1] = at::Point(115.75, 431.65);
@@ -243,7 +243,7 @@ cv::Mat perspectiveTransform(int camera) {
         dest_points_pts[1] =  at::Point(4.00, 2.82);
         dest_points_pts[3] =  at::Point(1.00, 4.83);
         dest_points_pts[2] =  at::Point(4.00, 4.86);
-    } else if (camera == 0) {
+    } else if (camera == 2) {
         /* Camera 2 (3:4) */
         source_points_pts[0] = at::Point(102.75, 17.36);
         source_points_pts[1] = at::Point(672.40, 18.45);
@@ -274,20 +274,12 @@ int main(int argc, char **argv) {
     // Doing graceful shutdown, prevents Linux USB system from crashing
     signal(SIGINT, signal_handler);
 
-    apriltag_detector_t *td = apriltag_detector_create();
-    apriltag_family_t *tf = tag16h5_create();
-    apriltag_detector_add_family(td, tf);
-
     GulliViewOptions opts = parse_options(argc, argv);
     at::Mat pts = perspectiveTransform(opts.device_num);
 
-//    if (opts.error_fraction >= 0 && opts.error_fraction <= 1) {
-//        family.setErrorRecoveryFraction(opts.error_fraction);
-//    }
-
-    cv::VideoCapture vc;
-    vc.open(opts.device_num);
-    //vc.set(cv::CAP_PROP_BUFFERSIZE, 1);
+    // Multiply by two due to each camera having two /devs
+    cv::VideoCapture vc(opts.device_num * 2, cv::CAP_V4L2);
+    vc.set(cv::CAP_PROP_BUFFERSIZE, 2);
 
     if (opts.frame_width && opts.frame_height) {
         // Use uvcdynctrl to figure this out dynamically at some point?
@@ -311,11 +303,14 @@ int main(int argc, char **argv) {
     }
 
     std::string win = "GulliViewer";
+    cv::namedWindow(win, cv::WINDOW_AUTOSIZE);
 
     TagFamily family(opts.family_str);
 
     apriltag_detector_t* detector = apriltag_detector_create();
     apriltag_detector_add_family(detector, family.at_family);
+    detector->quad_decimate = 1.0f;
+    detector->quad_sigma = 0.6f;
 
     boost::asio::io_service io_service;
     udp::resolver resolver(io_service);
@@ -344,10 +339,6 @@ int main(int argc, char **argv) {
 
         cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
 
-        //ptime start;
-        //start = boost::posix_time::microsec_clock::local_time();
-        //std::cout << "Start Time " << start << "\n";
-        //std::string startProcStr = helper::num2str(boost::posix_time::microsec_clock::local_time());
         if (frame.empty()) {
             break;
         }
@@ -578,10 +569,8 @@ int main(int argc, char **argv) {
             cv::flip(frame, frame, 1);
 
         if (not opts.no_gui) {
-            cout << "Showing image" << std::endl;
             cv::imshow(win, frame);
-        } else {
-            cout << "Not showing image" << std::endl;
+            cv::waitKey(1);
         }
 
         apriltag_detections_destroy(detections);
