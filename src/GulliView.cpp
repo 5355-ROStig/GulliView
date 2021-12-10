@@ -335,6 +335,7 @@ int main(int argc, char **argv) {
 
     uint32_t seq = 0;
     while (true) {
+        ptime fetch_start = boost::posix_time::microsec_clock::universal_time();
         vc >> frame;
 
         cv::Mat ret;
@@ -428,6 +429,9 @@ int main(int argc, char **argv) {
 
             cv::Mat_<double> distCoeffs = cv::Mat_<double>::zeros(4, 1);
 
+            static ptime epoch(boost::gregorian::date(1970, 1, 1));
+            uint64_t msecs = (fetch_start - epoch).total_milliseconds();
+
             boost::array<uint8_t, 256> recv_buf;
             size_t index = 0;
 
@@ -443,14 +447,14 @@ int main(int argc, char **argv) {
             recv_buf[index++] = seq >> 16;
             recv_buf[index++] = seq >> 8;
             recv_buf[index++] = seq;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0; // todo: age [s]
+            recv_buf[index++] = msecs >> 56;
+            recv_buf[index++] = msecs >> 48;
+            recv_buf[index++] = msecs >> 40;
+            recv_buf[index++] = msecs >> 32;
+            recv_buf[index++] = msecs >> 24;
+            recv_buf[index++] = msecs >> 16;
+            recv_buf[index++] = msecs >> 8;
+            recv_buf[index++] = msecs; // unix timestamp (in msecs)
             recv_buf[index++] = 0;
             recv_buf[index++] = 0;
             recv_buf[index++] = 0;
