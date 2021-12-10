@@ -405,11 +405,11 @@ int main(int argc, char** argv) {
          https://answers.opencv.org/question/29957/highguivideocapture-buffer-introducing-lag/?answer=38217#post-id-38217
          */
         time_duration frame_fetch_delay;
-        ptime fetch_start = boost::posix_time::microsec_clock::local_time();
+        ptime fetch_start = boost::posix_time::microsec_clock::universal_time();
         ptime fetch_stop;
         do {
             vc >> frame;
-            fetch_stop = boost::posix_time::microsec_clock::local_time();
+            fetch_stop = boost::posix_time::microsec_clock::universal_time();
             frame_fetch_delay = fetch_stop - fetch_start;
             fetch_start = fetch_stop;
             //std::cout << "Frame fetch delay" << helper::num2str(frame_fetch_delay) << "\n";
@@ -505,6 +505,9 @@ int main(int argc, char** argv) {
 
          cv::Mat_<double>      distCoeffs = cv::Mat_<double>::zeros(4,1);
 
+         static ptime epoch(boost::gregorian::date(1970, 1, 1));
+         uint64_t msecs = (fetch_start - epoch).total_milliseconds();
+
          boost::array<uint8_t, 256> recv_buf;
          size_t index = 0;
 
@@ -520,14 +523,14 @@ int main(int argc, char** argv) {
          recv_buf[index++] = seq >> 16;
          recv_buf[index++] = seq >> 8;
          recv_buf[index++] = seq;
-         recv_buf[index++] = 0;
-         recv_buf[index++] = 0;
-         recv_buf[index++] = 0;
-         recv_buf[index++] = 0;
-         recv_buf[index++] = 0;
-         recv_buf[index++] = 0;
-         recv_buf[index++] = 0;
-         recv_buf[index++] = 0; // todo: age [s]
+         recv_buf[index++] = msecs >> 56;
+         recv_buf[index++] = msecs >> 48;
+         recv_buf[index++] = msecs >> 40;
+         recv_buf[index++] = msecs >> 32;
+         recv_buf[index++] = msecs >> 24;
+         recv_buf[index++] = msecs >> 16;
+         recv_buf[index++] = msecs >> 8;
+         recv_buf[index++] = msecs; // unix timestamp (in msecs)
          recv_buf[index++] = 0;
          recv_buf[index++] = 0;
          recv_buf[index++] = 0;
