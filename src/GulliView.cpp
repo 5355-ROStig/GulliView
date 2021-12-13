@@ -446,7 +446,7 @@ int main(int argc, char **argv) {
                 htobe32(1) /* type */ ,
                 htobe32(2) /* subtype */,
                 htobe32(seq) /* seq */,
-                htobe32(msecs) /* time_msec */
+                htobe64(msecs) /* time_msec */
             };
 
             size_t index = 0;
