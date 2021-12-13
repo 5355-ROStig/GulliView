@@ -320,7 +320,9 @@ int main(int argc, char **argv) {
     }
 
     std::string win = "GulliViewer";
-    cv::namedWindow(win, cv::WINDOW_AUTOSIZE);
+    if (not opts.no_gui) {
+        cv::namedWindow(win, cv::WINDOW_AUTOSIZE);
+    }
 
     TagFamily family(opts.family_str);
 
