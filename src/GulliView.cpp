@@ -62,8 +62,8 @@ void signal_handler(int param) {
 
 typedef struct __attribute__ ((packed)) DetectionMessage {
     uint32_t id;
-    int32_t x;
-    int32_t y;
+    uint32_t x;
+    uint32_t y;
     uint32_t camera_id;
 } DetectionMessage;
 
@@ -441,10 +441,10 @@ int main(int argc, char **argv) {
             uint64_t msecs = (fetch_start - epoch).total_milliseconds();
 
             Message buf {
-                1   /* type */ ,
-                2 /* subtype */,
-                 seq      /* seq */,
-                 msecs    /* time_msec */
+                htobe32(1) /* type */ ,
+                htobe32(2) /* subtype */,
+                htobe32(seq) /* seq */,
+                htobe32(msecs) /* time_msec */
             };
 
             size_t index = 0;
@@ -502,10 +502,10 @@ int main(int argc, char **argv) {
                     int32_t y_coord = (int32_t) (newDetections[i].y * 1000.0);
 
                     buf.detections[index++] = {
-                            (uint32_t) dd->id - 3  /* id */,
-                            x_coord                    /* x */,
-                            y_coord                    /* y */,
-                            (uint32_t) opts.device_num /* camera_id */
+                            htobe32(dd->id - 3) /* id */,
+                            htobe32(x_coord) /* x */,
+                            htobe32(y_coord) /* y */,
+                            htobe32(opts.device_num) /* camera_id */
                     };
 
                     std::cout << "camera: " << opts.device_num << " tag: " << dd->id << " x: " << x_coord << " y: "
@@ -535,7 +535,7 @@ int main(int argc, char **argv) {
                 }
             }
 
-            buf.length = index;
+            buf.length = htobe32(index);
             socket.send_to(boost::asio::buffer((uint8_t*) &buf, 256), receiver_endpoint);
             ++seq;
         }
