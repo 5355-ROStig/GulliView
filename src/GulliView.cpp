@@ -456,7 +456,8 @@ int main(int argc, char **argv) {
             recv_buf[index++] = 0; // todo: age [us]
             size_t len = 0;
 
-            size_t len_index = index + 4;
+            size_t len_index = index;
+            index += 4;
 
             std::vector<at::Point> rawDetections(zarray_size(detections));
             for (int i = 0; i < zarray_size(detections); i++) {
