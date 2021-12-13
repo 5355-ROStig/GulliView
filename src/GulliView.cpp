@@ -60,6 +60,23 @@ void signal_handler(int param) {
     sig_stop = 1;
 }
 
+typedef struct __attribute__ ((packed)) DetectionMessage {
+    uint32_t id;
+    int32_t x;
+    int32_t y;
+    uint32_t camera_id;
+} DetectionMessage;
+
+typedef struct __attribute__ ((packed)) Message {
+    uint32_t type;
+    uint32_t subtype;
+    uint32_t seq;
+    uint64_t time_msec;
+    uint64_t UNUSED;
+    uint32_t length;
+    DetectionMessage detections[14];
+} Message;
+
 typedef struct GulliViewOptions {
     GulliViewOptions() :
             family_str(DEFAULT_TAG_FAMILY),
@@ -423,41 +440,14 @@ int main(int argc, char **argv) {
             static ptime epoch(boost::gregorian::date(1970, 1, 1));
             uint64_t msecs = (fetch_start - epoch).total_milliseconds();
 
-            boost::array<uint8_t, 256> recv_buf;
+            Message buf {
+                1   /* type */ ,
+                2 /* subtype */,
+                 seq      /* seq */,
+                 msecs    /* time_msec */
+            };
+
             size_t index = 0;
-
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 1; //type
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 2; //subtype
-            recv_buf[index++] = seq >> 24;
-            recv_buf[index++] = seq >> 16;
-            recv_buf[index++] = seq >> 8;
-            recv_buf[index++] = seq;
-            recv_buf[index++] = msecs >> 56;
-            recv_buf[index++] = msecs >> 48;
-            recv_buf[index++] = msecs >> 40;
-            recv_buf[index++] = msecs >> 32;
-            recv_buf[index++] = msecs >> 24;
-            recv_buf[index++] = msecs >> 16;
-            recv_buf[index++] = msecs >> 8;
-            recv_buf[index++] = msecs; // unix timestamp (in msecs)
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0;
-            recv_buf[index++] = 0; // todo: age [us]
-            size_t len = 0;
-
-            size_t len_index = index;
-            index += 4;
 
             std::vector<at::Point> rawDetections(zarray_size(detections));
             for (int i = 0; i < zarray_size(detections); i++) {
@@ -508,28 +498,16 @@ int main(int argc, char **argv) {
                             cv::FONT_HERSHEY_SIMPLEX,
                             1.0, cv::Scalar(0, 250, 0), 2, cv::LINE_AA);
 
-                    uint32_t id = dd->id - 3;
-                    recv_buf[index++] = id >> 24;
-                    recv_buf[index++] = id >> 16;
-                    recv_buf[index++] = id >> 8;
-                    recv_buf[index++] = id;
                     int32_t x_coord = (int32_t) (newDetections[i].x * 1000.0);
-                    recv_buf[index++] = x_coord >> 24;
-                    recv_buf[index++] = x_coord >> 16;
-                    recv_buf[index++] = x_coord >> 8;
-                    recv_buf[index++] = x_coord;
                     int32_t y_coord = (int32_t) (newDetections[i].y * 1000.0);
-                    recv_buf[index++] = y_coord >> 24;
-                    recv_buf[index++] = y_coord >> 16;
-                    recv_buf[index++] = y_coord >> 8;
-                    recv_buf[index++] = y_coord;
-                    //prev 0
-                    int32_t heading = opts.device_num; //TODO
-                    recv_buf[index++] = heading >> 24;
-                    recv_buf[index++] = heading >> 16;
-                    recv_buf[index++] = heading >> 8;
-                    recv_buf[index++] = heading;
-                    ++len;
+
+                    buf.detections[index++] = {
+                            (uint32_t) dd->id - 3  /* id */,
+                            x_coord                    /* x */,
+                            y_coord                    /* y */,
+                            (uint32_t) opts.device_num /* camera_id */
+                    };
+
                     std::cout << "camera: " << opts.device_num << " tag: " << dd->id << " x: " << x_coord << " y: "
                               << y_coord << std::endl;
                 }
@@ -557,12 +535,8 @@ int main(int argc, char **argv) {
                 }
             }
 
-            index = len_index;
-            recv_buf[index++] = len << 24;
-            recv_buf[index++] = len << 16;
-            recv_buf[index++] = len << 8;
-            recv_buf[index++] = len;
-            socket.send_to(boost::asio::buffer(recv_buf), receiver_endpoint);
+            buf.length = index;
+            socket.send_to(boost::asio::buffer((uint8_t*) &buf, 256), receiver_endpoint);
             ++seq;
         }
 
