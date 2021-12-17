@@ -240,7 +240,7 @@ cv::Mat perspectiveTransform(int camera) {
     at::Point dest_points_pts[4];
 
 
-    if (camera == 0) {
+    if (camera == 3) {
         /* Camera 3 (1:4) */
         source_points_pts[0] = at::Point(132.93, 85.90);
         source_points_pts[1] = at::Point(661.55, 82.38);
@@ -250,8 +250,8 @@ cv::Mat perspectiveTransform(int camera) {
         dest_points_pts[1] =  at::Point(4.00, 1.00);
         dest_points_pts[3] =  at::Point(1.00, 2.77);
         dest_points_pts[2] =  at::Point(4.00, 2.82);
-    } else if (camera == 1) {
-        /* Camera 1 (2:4) */
+    } else if (camera == 0) {
+        /* Camera 0 (2:4) */
         source_points_pts[0] = at::Point(672.00, 418.80);
         source_points_pts[1] = at::Point(115.75, 431.65);
         source_points_pts[3] = at::Point(681.00, 30.69);
@@ -270,8 +270,8 @@ cv::Mat perspectiveTransform(int camera) {
         dest_points_pts[1] =  at::Point(4.00, 4.86);
         dest_points_pts[3] =  at::Point(1.00, 6.97);
         dest_points_pts[2] =  at::Point(4.00, 6.965);
-    } else if (camera == 3) {
-        /* Camera 0 (4:4) */
+    } else if (camera == 1) {
+        /* Camera 1 (4:4) */
         source_points_pts[0] = at::Point(690.96, 429.82);
         source_points_pts[1] = at::Point(93.40, 431.02);
         source_points_pts[3] = at::Point(667.82, 40.81);
