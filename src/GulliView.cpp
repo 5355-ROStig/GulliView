@@ -504,7 +504,7 @@ int main(int argc, char **argv) {
                     int32_t y_coord = (int32_t) (newDetections[i].y * 1000.0);
 
                     buf.detections[index++] = {
-                            htobe32(dd->id - 3) /* id */,
+                            htobe32(dd->id) /* id */,
                             htobe32(x_coord) /* x */,
                             htobe32(y_coord) /* y */,
                             htobe32(opts.device_num) /* camera_id */
