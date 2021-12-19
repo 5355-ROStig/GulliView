@@ -74,20 +74,20 @@ To compile the code,
 Running GulliView
 =================
 
-The binary should be located at in the build directory. Command line
+The binary is located in the build directory. Command line
 options can be seen by running `./GulliView -h`. For running GulliView in
-the eg5355 lab, there is a script `startCamerasBroadcast.sh` in the build
-directory.
+the eg5355 lab on all cameras, there is a script `startCamerasBroadcast.sh`
+in the build directory.
 
 It's not working :(
 =================
 
-* Have the right tag family been provided using the `-t` flag?
+* Has the right tag family been provided using the `-t` flag?
 * Make sure the user running the program is in the video group:  
   `sudo useradd <user> video`
 * If GulliView is not running with the `-n` (nogui) flag, X forwarding 
 needs to be enabled if connected via SSH.
 * The camera IDs presented by the OS may have changed. Try changing the 
-command line option for camera device (`-d <device>`).
-* You may have trouble multiple cameras are connected via the same USB hub.
+command line option for the camera device (`-d <device>`).
+* You may have trouble if multiple cameras are connected via the same USB hub.
 * Using a powered USB hub instead of the on-board ports may work sometimes.
